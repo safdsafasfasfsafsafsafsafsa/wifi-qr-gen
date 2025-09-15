@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WiFi QR Generator
 
-## Getting Started
+WiFi 네트워크 정보를 QR 코드로 생성하는 웹 애플리케이션입니다. 손님들이 WiFi에 쉽게 연결할 수 있도록 QR 코드를 생성하고 공유할 수 있습니다.
 
-First, run the development server:
+## 기능
+
+- WiFi 네트워크 정보 입력 (SSID, 비밀번호, 보안 타입)
+- 실시간 QR 코드 생성 및 미리보기
+- QR 코드 다운로드 기능
+- 반응형 웹 디자인
+
+## 기술 스택
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **QR Code**: qrcode 라이브러리 (예정)
+
+## 시작하기
+
+### 개발 서버 실행
 
 ```bash
 npm run dev
-# or
+# 또는
 yarn dev
-# or
+# 또는
 pnpm dev
-# or
+# 또는
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 결과를 확인하세요.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 빌드
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## 사용법
 
-To learn more about Next.js, take a look at the following resources:
+1. WiFi 네트워크의 SSID를 입력합니다
+2. 비밀번호를 입력합니다 (선택사항)
+3. 보안 타입을 선택합니다 (WPA/WEP/없음)
+4. QR 코드가 자동으로 생성됩니다
+5. QR 코드를 다운로드하여 인쇄하거나 공유합니다
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 배포
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel (권장)
 
-## Deploy on Vercel
+[Vercel Platform](https://vercel.com/new)을 사용하여 쉽게 배포할 수 있습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 기타 플랫폼
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 애플리케이션은 다양한 플랫폼에서 배포할 수 있습니다. 자세한 내용은 [Next.js 배포 문서](https://nextjs.org/docs/app/building-your-application/deploying)를 참조하세요.
+
+## 라이선스
+
+MIT License
