@@ -1,7 +1,7 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <main></main>
+    <main>
+      <h1>WiFi QR Generator</h1>
+    </main>
   );
 }
