@@ -1,0 +1,10 @@
+---
+alwaysApply: true
+---
+
+### Conventional Commits
+
+- 형식: `<type>(<scope>): <subject>`
+- 주요 type: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+- 예시: `feat(ui): add Badge component`
+- 범위(scope)는 선택 사항이며 소문자 사용 권장.

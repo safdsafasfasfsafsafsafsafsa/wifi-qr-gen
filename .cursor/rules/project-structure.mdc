@@ -1,0 +1,25 @@
+---
+alwaysApply: true
+---
+
+### 프로젝트 구조 가이드
+
+- 엔트리:
+  - 앱 레이아웃: [src/app/layout.tsx](mdc:src/app/layout.tsx)
+  - 홈 페이지: [src/app/page.tsx](mdc:src/app/page.tsx)
+- 글로벌 스타일: [src/app/globals.css](mdc:src/app/globals.css)
+- UI 컴포넌트: [src/components/ui](mdc:src/components/ui)
+  - 예: [button.tsx](mdc:src/components/ui/button.tsx), [card.tsx](mdc:src/components/ui/card.tsx), [badge.tsx](mdc:src/components/ui/badge.tsx)
+- 유틸리티: [src/lib/utils.ts](mdc:src/lib/utils.ts)
+
+### 기술 스택
+
+- Next.js 15, React 19, TypeScript
+- Tailwind CSS v4 + `@tailwindcss/postcss`
+- shadcn/ui 스타일 패턴(cva, VariantProps, `cn`)
+
+### 빌드/스크립트
+
+- 개발: `npm run dev`
+- 빌드: `npm run build`
+- 시작: `npm run start`

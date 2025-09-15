@@ -1,0 +1,15 @@
+---
+globs: src/app/**/*.css
+---
+
+### Tailwind v4 테마 규칙
+
+- 색상 토큰은 `@theme`에서 `--color-*`로 선언한다.
+- CSS 변수는 `:root` 및 `.dark`에서 HSL 값만을 저장한다.
+- 유틸리티 사용 예:
+  - 배경/텍스트: `bg-background`, `text-foreground`
+  - 테두리: `border`, `border-border`
+  - 입력: `border-input`
+- 에디터 경고(unknownAtRules)를 줄이기 위해 `.vscode/settings.json`에서 PostCSS로 연관하거나 `css.lint.unknownAtRules`를 무시할 수 있다.
+
+관련 파일: [globals.css](mdc:src/app/globals.css)

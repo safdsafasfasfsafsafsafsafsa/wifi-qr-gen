@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+
+# WiFi QR Gen 규칙 인덱스
+
+다음 규칙 파일들을 참조하세요:
+
+- 프로젝트 구조: [project-structure.mdc](mdc:.cursor/rules/project-structure.mdc)
+- Tailwind v4 테마: [tailwind-v4-theme.mdc](mdc:.cursor/rules/tailwind-v4-theme.mdc)
+- shadcn/ui: [shadcn-ui.mdc](mdc:.cursor/rules/shadcn-ui.mdc)
+- TypeScript 스타일: [typescript-style.mdc](mdc:.cursor/rules/typescript-style.mdc)
+- Conventional Commits: [conventional-commits.mdc](mdc:.cursor/rules/conventional-commits.mdc)
