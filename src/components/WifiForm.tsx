@@ -16,9 +16,9 @@ import {
 import {
   wifiFormSchema,
   type WifiFormData,
-  colorOptions,
   securityOptions,
 } from "@/lib/schemas";
+import { ColorPicker } from "@/components/ColorPicker";
 import { useState } from "react";
 
 interface WifiFormProps {
@@ -156,26 +156,10 @@ export function WifiForm({
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-slate-900">카드 디자인</h3>
 
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">배경색</Label>
-          <div className="flex gap-2 flex-wrap">
-            {colorOptions.map((color) => (
-              <button
-                key={color.value}
-                type="button"
-                className={`w-8 h-8 rounded-full ${
-                  color.color
-                } hover:scale-110 transition-transform ${
-                  selectedColor === color.value
-                    ? "ring-2 ring-blue-500 ring-offset-2"
-                    : ""
-                }`}
-                title={color.name}
-                onClick={() => handleColorSelect(color.value)}
-              />
-            ))}
-          </div>
-        </div>
+        <ColorPicker
+          selectedColor={selectedColor}
+          onColorChange={handleColorSelect}
+        />
       </div>
 
       <Button
