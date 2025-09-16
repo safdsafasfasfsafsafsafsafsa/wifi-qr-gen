@@ -1,5 +1,7 @@
 # WiFi QR Generator
 
+cursor ai 테스트
+
 WiFi 네트워크 정보를 QR 코드로 생성하는 웹 애플리케이션입니다. 손님들이 WiFi에 쉽게 연결할 수 있도록 QR 코드를 생성하고 공유할 수 있습니다.
 
 ## 기능
