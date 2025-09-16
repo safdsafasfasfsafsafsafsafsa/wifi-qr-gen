@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { WifiForm } from "@/components/WifiForm";
+import { WifiQRCard } from "@/components/WifiQRCard";
 import { type WifiFormData } from "@/lib/schemas";
 import { useState } from "react";
 
@@ -73,25 +74,7 @@ export default function Home() {
               <CardContent>
                 {/* 카드 미리보기 영역 */}
                 <div className="flex justify-center items-center min-h-[500px] bg-slate-50 rounded-lg border-2 border-dashed border-slate-300">
-                  <div className="text-center text-slate-500">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-slate-200 rounded-lg flex items-center justify-center">
-                      <svg
-                        className="w-8 h-8"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 4v16m8-8H4"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-sm">WiFi 정보를 입력하면</p>
-                    <p className="text-sm">QR 코드 카드가 여기에 표시됩니다</p>
-                  </div>
+                  <WifiQRCard data={formData} />
                 </div>
 
                 {/* 다운로드 버튼 */}
