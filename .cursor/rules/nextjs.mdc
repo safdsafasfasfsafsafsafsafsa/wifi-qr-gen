@@ -1,0 +1,244 @@
+---
+description: Next.js App Router conventions and best practices for fullstack development
+globs: **/*.js,**/*.jsx,**/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# Next.js App Router 규칙
+
+Next.js App Router를 사용한 풀스택 개발을 위한 컨벤션과 모범 사례
+
+## 1. 디렉토리 구조 및 파일 명명
+
+### 디렉토리 구조
+
+- App Router 구조를 사용하고 라우트 디렉토리에 `page.tsx` 파일 배치
+- 디렉토리명은 kebab-case 사용
+- 컴포넌트 파일명은 PascalCase 사용
+
+```typescript
+// Good: 디렉토리 구조
+src/
+├── app/
+│   ├── page.tsx
+│   ├── layout.tsx
+│   └── dashboard/
+│       └── page.tsx
+└── components/
+    ├── auth-form/
+    │   └── AuthForm.tsx
+    └── ui/
+        └── Button.tsx
+
+// Bad: 잘못된 명명
+src/
+├── app/
+│   └── HomePage.tsx  // page.tsx여야 함
+└── components/
+    └── authForm/     // auth-form이어야 함
+        └── authForm.tsx  // AuthForm.tsx여야 함
+```
+
+## 2. 컴포넌트 내보내기 규칙
+
+### Named Exports 선호
+
+- 기본 내보내기보다 명명된 내보내기 사용
+- 더 나은 IDE 지원과 리팩토링 용이성 제공
+
+```typescript
+// Good: Named export
+export function Button({ children, ...props }: ButtonProps) {
+  return <button {...props}>{children}</button>;
+}
+
+// Bad: Default export
+export default function Button({ children, ...props }: ButtonProps) {
+  return <button {...props}>{children}</button>;
+}
+```
+
+## 3. Client/Server 컴포넌트 최적화
+
+### Client 컴포넌트 최소화
+
+- 대부분의 컴포넌트를 React Server Components (RSC)로 유지
+- 상호작용이 필요한 경우에만 `'use client'` 사용
+- 작은 클라이언트 컴포넌트 래퍼 생성
+
+```typescript
+// Good: Server Component (기본)
+function ProductList({ products }: { products: Product[] }) {
+  return (
+    <div>
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+
+// Good: 작은 Client Component 래퍼
+("use client");
+function AddToCartButton({ productId }: { productId: string }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAddToCart = async () => {
+    setIsLoading(true);
+    // 클라이언트 로직
+    setIsLoading(false);
+  };
+
+  return (
+    <button onClick={handleAddToCart} disabled={isLoading}>
+      {isLoading ? "추가 중..." : "장바구니에 추가"}
+    </button>
+  );
+}
+
+// Bad: 불필요한 Client Component
+("use client");
+function ProductList({ products }: { products: Product[] }) {
+  // 정적 렌더링만 하는데 'use client' 사용
+  return (
+    <div>
+      {products.map((product) => (
+        <div key={product.id}>{product.name}</div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Suspense와 함께 사용
+
+```typescript
+// Good: Suspense로 래핑
+import { Suspense } from "react";
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>대시보드</h1>
+      <Suspense fallback={<div>로딩 중...</div>}>
+        <InteractiveChart />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+## 4. 상태 관리 최적화
+
+### 불필요한 useState/useEffect 피하기
+
+- 서버 컴포넌트를 데이터 페칭에 사용
+- React Server Actions를 폼 처리에 사용
+- URL 검색 매개변수를 공유 가능한 상태로 사용
+
+```typescript
+// Good: Server Component로 데이터 페칭
+async function ProductPage({ params }: { params: { id: string } }) {
+  const product = await fetchProduct(params.id);
+
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+    </div>
+  );
+}
+
+// Good: Server Action 사용
+async function createProduct(formData: FormData) {
+  "use server";
+
+  const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
+
+  // 데이터베이스에 저장
+  await saveProduct({ name, description });
+}
+
+// Bad: 불필요한 클라이언트 상태
+("use client");
+function ProductPage({ params }: { params: { id: string } }) {
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    // 서버에서 할 수 있는 일을 클라이언트에서 수행
+    fetchProduct(params.id).then(setProduct);
+  }, [params.id]);
+
+  if (!product) return <div>로딩 중...</div>;
+
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+    </div>
+  );
+}
+```
+
+## 5. URL 상태 관리
+
+### nuqs 사용
+
+- URL 검색 매개변수 상태 관리를 위해 `nuqs` 라이브러리 사용
+- 공유 가능한 상태와 브라우저 히스토리 지원
+
+```typescript
+// Good: nuqs 사용
+import { useQueryState } from "nuqs";
+
+function SearchPage() {
+  const [query, setQuery] = useQueryState("q", { defaultValue: "" });
+  const [category, setCategory] = useQueryState("category");
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="검색어 입력"
+      />
+      <select
+        value={category || ""}
+        onChange={(e) => setCategory(e.target.value || null)}
+      >
+        <option value="">전체</option>
+        <option value="electronics">전자제품</option>
+        <option value="clothing">의류</option>
+      </select>
+    </div>
+  );
+}
+```
+
+## 6. 폼 처리
+
+### Server Actions 활용
+
+```typescript
+// Good: Server Action으로 폼 처리
+async function ContactForm() {
+  async function submitForm(formData: FormData) {
+    "use server";
+
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+
+    // 이메일 전송 로직
+    await sendEmail({ name, email });
+  }
+
+  return (
+    <form action={submitForm}>
+      <input name="name" placeholder="이름" required />
+      <input name="email" type="email" placeholder="이메일" required />
+      <button type="submit">전송</button>
+    </form>
+  );
+}
+```
