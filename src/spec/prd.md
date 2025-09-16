@@ -160,16 +160,16 @@
 
 #### 9.1 프로젝트 설정 및 환경 구성
 
-- [ ] **TASK-001**: Next.js 15 프로젝트 초기 설정
+- [x] **TASK-001**: Next.js 15 프로젝트 초기 설정
   - App Router 구조 설정
   - TypeScript 설정
   - Tailwind CSS v4 설정
   - ESLint 및 Prettier 설정
-- [ ] **TASK-002**: shadcn/ui 컴포넌트 설치 및 설정
+- [x] **TASK-002**: shadcn/ui 컴포넌트 설치 및 설정
   - 기본 UI 컴포넌트 설치 (Button, Input, Card, Label)
   - 색상 선택기 컴포넌트 설치
   - 컴포넌트 테마 설정
-- [ ] **TASK-003**: 필수 라이브러리 설치
+- [x] **TASK-003**: 필수 라이브러리 설치
   - QR 코드 생성: `qrcode` 라이브러리
   - 이미지 다운로드: `html2canvas` 라이브러리
   - 폼 관리: `react-hook-form` 라이브러리
@@ -177,7 +177,7 @@
 
 #### 9.2 기본 UI 레이아웃 구성
 
-- [ ] **TASK-004**: 메인 페이지 레이아웃 설계
+- [x] **TASK-004**: 메인 페이지 레이아웃 설계
   - 입력 폼 영역 (좌측)
   - 미리보기 영역 (우측)
   - 반응형 레이아웃 기본 구조
