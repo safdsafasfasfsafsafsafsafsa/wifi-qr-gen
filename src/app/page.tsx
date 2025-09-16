@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,11 +8,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
+import { WifiForm } from "@/components/WifiForm";
+import { type WifiFormData } from "@/lib/schemas";
+import { useState } from "react";
 
 export default function Home() {
+  const [selectedColor, setSelectedColor] = useState("#ffffff");
+  const [formData, setFormData] = useState<WifiFormData | null>(null);
+
+  const handleFormSubmit = (data: WifiFormData) => {
+    setFormData(data);
+    console.log("Form submitted:", data);
+  };
+
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* 헤더 */}
@@ -37,119 +51,12 @@ export default function Home() {
                   매장의 WiFi 정보를 입력하여 QR 코드 카드를 생성하세요
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {/* 브랜드 이름 */}
-                <div className="space-y-2">
-                  <Label htmlFor="brandName" className="text-sm font-medium">
-                    브랜드 이름 *
-                  </Label>
-                  <Input
-                    id="brandName"
-                    placeholder="예: 스타벅스, 맥도날드"
-                    className="h-11"
-                  />
-                </div>
-
-                <Separator />
-
-                {/* 네트워크 정보 */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-slate-900">
-                    WiFi 네트워크 정보
-                  </h3>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="ssid" className="text-sm font-medium">
-                      네트워크 이름 (SSID) *
-                    </Label>
-                    <Input
-                      id="ssid"
-                      placeholder="WiFi 네트워크 이름을 입력하세요"
-                      className="h-11"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="text-sm font-medium">
-                      비밀번호 *
-                    </Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="WiFi 비밀번호를 입력하세요"
-                      className="h-11"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="security" className="text-sm font-medium">
-                      보안 타입
-                    </Label>
-                    <Input
-                      id="security"
-                      placeholder="WPA, WEP, 또는 없음"
-                      defaultValue="WPA"
-                      className="h-11"
-                    />
-                  </div>
-                </div>
-
-                <Separator />
-
-                {/* 배경색 선택 */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-slate-900">
-                    카드 디자인
-                  </h3>
-
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">배경색</Label>
-                    <div className="flex gap-2 flex-wrap">
-                      {[
-                        {
-                          name: "흰색",
-                          value: "#ffffff",
-                          color: "bg-white border",
-                        },
-                        {
-                          name: "회색",
-                          value: "#f8fafc",
-                          color: "bg-slate-50 border",
-                        },
-                        {
-                          name: "파란색",
-                          value: "#3b82f6",
-                          color: "bg-blue-500",
-                        },
-                        {
-                          name: "초록색",
-                          value: "#10b981",
-                          color: "bg-emerald-500",
-                        },
-                        {
-                          name: "보라색",
-                          value: "#8b5cf6",
-                          color: "bg-violet-500",
-                        },
-                        {
-                          name: "핑크색",
-                          value: "#ec4899",
-                          color: "bg-pink-500",
-                        },
-                      ].map((color) => (
-                        <button
-                          key={color.value}
-                          className={`w-8 h-8 rounded-full ${color.color} hover:scale-110 transition-transform`}
-                          title={color.name}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <Button className="w-full h-12 text-lg font-semibold">
-                  QR 코드 카드 생성
-                </Button>
+              <CardContent>
+                <WifiForm
+                  onSubmit={handleFormSubmit}
+                  onColorChange={handleColorChange}
+                  selectedColor={selectedColor}
+                />
               </CardContent>
             </Card>
           </div>
